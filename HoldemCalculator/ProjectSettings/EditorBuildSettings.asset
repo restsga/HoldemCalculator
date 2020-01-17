@@ -6,5 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/StartingHand.unity
+    path: Assets/Scenes/StartingHand/StartingHand.unity
     guid: 598bf78f779b27c48b657b62128f4fea
+  - enabled: 1
+    path: Assets/Scenes/FlopResult/FlopResult.unity
+    guid: 2ec35901c8a7b204aabd7dad7358e0aa
