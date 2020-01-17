@@ -58,3 +58,6 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+HoldemCalculator/APK/
+HoldemCalculator/Library/il2cpp_android_armeabi-v7a/
+HoldemCalculator/Library/il2cpp_android_x86/
