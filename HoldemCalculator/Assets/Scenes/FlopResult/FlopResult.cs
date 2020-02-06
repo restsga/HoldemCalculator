@@ -114,49 +114,50 @@ public class FlopResult : MonoBehaviour
 
 
         count++;
-        switch (Ranks.Score(cards))
+        switch (RankScore.Score(cards.ToArray())&0xF0000000)
         {
-            case Ranks.straight_flush:
+            case RankScore.STFL:
                 straight_flush++;
                 return;
-            case Ranks.quads:
+            case RankScore.QUADS:
                 quads++;
                 return;
-            case Ranks.full_house:
+            case RankScore.FULL:
                 full_house++;
                 return;
-            case Ranks.flush:
+            case RankScore.FLUSH:
                 flush++;
                 return;
-            case Ranks.straight:
+            case RankScore.STRAIGHT:
                 straight++;
                 return;
-            case Ranks.three_card:
+            case RankScore.THREE:
                 three_card++;
                 return;
             default:
                 break;
         }
 
-        if (Ranks.FlushDraw(cards))
+        uint draw_flag = DrawOuts.Draw(cards.ToArray(), holecard[0]);
+        if((draw_flag&(DrawOuts.FLUSH_DRAW | DrawOuts.NUTS_FLUSH_DRAW)) != 0)
         {
             flush_draw++;
             return;
         }
-        int straight_draw_rank = Ranks.StraightDraw(cards);
-        switch (straight_draw_rank)
+        if ((draw_flag & DrawOuts.OPEN_END) != 0)
         {
-            case 3:
-                straight_draw_2_open++;
-                return;
-            case 2:
-                straight_draw_2_belly++;
-                return;
-            case 1:
-                straight_draw_1++;
-                return;
-            default:
-                break;
+            straight_draw_2_open++;
+            return;
+        }
+        if ((draw_flag & DrawOuts.DOUBLE_BELLY) != 0)
+        {
+            straight_draw_2_belly++;
+            return;
+        }
+        if ((draw_flag & DrawOuts.GUT_SHOT) != 0)
+        {
+            straight_draw_1++;
+            return;
         }
     }
 }
